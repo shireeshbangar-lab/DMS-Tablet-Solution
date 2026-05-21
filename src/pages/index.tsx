@@ -1,21 +1,60 @@
-export const DashboardPage = ({ role }:{role:string}) => <div className='grid md:grid-cols-4 gap-4'>
-  {['Pending Appointments','Uploads Today','Checklist Completion','Stock Approval Queue'].map((k,i)=><div key={k} className='card'><p className='text-sm text-slate-500'>{k}</p><p className='text-2xl font-bold'>{[28,124,86,7][i]}</p></div>)}
-  <div className='card md:col-span-4'><p className='font-semibold mb-2'>Role-Based Controls: {role}</p><p className='text-sm text-slate-500'>Breadcrumbs, toasts, skeletons, and empty/error states are implemented per module cards below.</p></div>
+const chip = 'px-2 py-1 rounded text-[10px] font-bold tracking-wide';
+
+export const DashboardPage = () => <div className='grid md:grid-cols-4 gap-4'>
+  {['Pending Appointments', 'Uploads Today', 'Checklist Completion', 'Stock Approval Queue'].map((k, i) => <div key={k} className='card'><p className='text-sm text-slate-500'>{k}</p><p className='text-3xl font-bold'>{[28, 124, '65%', 7][i]}</p></div>)}
 </div>;
 
-export const MediaPage = () => <div className='grid lg:grid-cols-3 gap-4'>
-  <section className='card lg:col-span-2'><h2 className='font-semibold mb-2'>Media Upload Panel</h2><div className='border-2 border-dashed rounded-lg p-6 text-center'>Drag/drop photos or capture camera input</div><div className='mt-3 grid grid-cols-4 gap-2'>{Array.from({length:8}).map((_,i)=><div key={i} className='aspect-square bg-slate-200 dark:bg-slate-800 rounded' />)}</div></section>
-  <aside className='space-y-4'><div className='card'><h3 className='font-semibold'>Validation Summary</h3><ul className='text-sm mt-2 space-y-1'><li>File type/size validation</li><li>Min/Max photo checks</li><li>Duplicate/corrupted detection</li><li>Mandatory checkpoint media alerts</li></ul></div><div className='card'><h3 className='font-semibold'>Upload Stats</h3><p className='text-sm mt-2'>2TB capacity • 612GB used • Compression 78% • Offline queue: 5 retries</p></div></aside>
+export const MediaPage = () => <div className='grid lg:grid-cols-[1.8fr_1fr] gap-4'>
+  <section className='space-y-4'>
+    <div className='rounded-xl border-2 border-dashed border-slate-300 bg-white p-10 text-center'>
+      <div className='w-12 h-12 rounded-xl bg-slate-100 mx-auto mb-3 grid place-content-center text-2xl'>☁️</div>
+      <h3 className='text-3xl font-semibold'>Tap to Upload or Drag & Drop</h3>
+      <p className='text-slate-500 mt-1'>High-resolution vehicle photos (JPEG, PNG). Recommended 1920×1080px.</p>
+      <div className='mt-5 flex justify-center gap-3'>
+        <button className='px-5 py-2 rounded bg-[#0a1731] text-white font-semibold'>Select Files</button>
+        <button className='px-5 py-2 rounded border border-slate-300 font-semibold'>Import from Phone</button>
+      </div>
+    </div>
+    <div className='rounded-xl bg-[#1d2b49] text-white p-4 flex items-center gap-3'>
+      <span className='bg-white/20 rounded px-2 py-1 text-xs'>Uploading 3/10 photos...</span>
+      <div className='flex-1 h-2 rounded-full bg-white/25'><div className='h-2 rounded-full bg-white w-[65%]' /></div>
+      <span className='text-sm font-semibold'>65%</span>
+    </div>
+    <div>
+      <h3 className='text-3xl font-bold mb-3'>Photo Gallery</h3>
+      <div className='grid grid-cols-2 md:grid-cols-4 gap-3'>{['FRONT LEFT 3/4', 'INTERIOR DASHBOARD', 'REAR EXTERIOR', 'WHEEL DETAIL'].map((txt, i) => <div key={txt} className='rounded-xl h-28 bg-gradient-to-r from-slate-300 to-slate-500 relative overflow-hidden'><span className='absolute bottom-2 left-2 text-[10px] font-bold text-white bg-black/50 px-2 rounded'>{txt}</span><span className='absolute top-2 right-2 text-white text-xs'>#{i + 1}</span></div>)}</div>
+    </div>
+  </section>
+  <aside className='space-y-4'>
+    <div className='card'><h4 className='font-bold text-slate-700'>MEDIA STATUS CHECKLIST</h4><ul className='mt-3 text-sm space-y-3'><li>✅ <b>4 Mandatory Photos Uploaded</b><p className='text-slate-500'>Front, rear, side, and dash views confirmed.</p></li><li>🛑 <b>Missing: VIN Plate Photo</b><p className='text-slate-500'>Required for legal compliance and stock registration.</p></li><li>ℹ️ <b>Optional: Service Log PDF</b><p className='text-slate-500'>Adds credibility for resale listing.</p></li></ul><button className='w-full mt-4 py-2 rounded bg-[#0a1731] text-white font-semibold'>Generate Stock Report</button></div>
+    <div className='card'><h4 className='font-semibold'>Cloud Storage</h4><p className='text-sm mt-2 text-slate-500'>Estimated usage: 12.4 MB2.0 TB Total</p></div>
+  </aside>
 </div>;
 
-export const DRPage = () => <div className='space-y-4'>
-  <div className='card flex flex-wrap gap-2'><input className='px-3 py-2 rounded border flex-1 min-w-40' placeholder='Search appointment/customer'/><input type='date' className='px-3 py-2 rounded border'/><select className='px-3 py-2 rounded border'><option>Program: All</option></select><button className='ml-auto rounded-full w-10 h-10 bg-blue-600 text-white'>+</button></div>
-  <div className='grid md:grid-cols-2 gap-4'>{['Pending','In Progress','Completed','Submitted'].map(s=><div key={s} className='card'><p className='font-semibold'>{s}</p><p className='text-sm'>Swipe-ready tablet card with auto-save + offline simulation + signature capture.</p></div>)}</div>
-  <div className='card'><h3 className='font-semibold mb-2'>Inspection Checklist</h3><div className='w-full bg-slate-200 rounded h-2'><div className='bg-emerald-500 h-2 rounded w-3/4'/></div><p className='text-sm mt-2'>Accordion checklist with embedded photos, item comments, OK/Warning/Critical tags.</p></div>
+export const DRPage = () => <div className='grid lg:grid-cols-[1.4fr_.8fr] gap-4'>
+  <section className='space-y-3'>
+    <div className='flex items-center gap-2 text-xl font-semibold'>☑️ Multi-Point Inspection Checklist</div>
+    <div className='h-2 rounded-full bg-slate-200'><div className='h-2 rounded-full bg-[#0a1731] w-[65%]' /></div>
+    <div className='space-y-3'>
+      <div className='bg-slate-100 border rounded-xl p-4 text-slate-400 font-bold flex justify-between'>Engine & Fluids <span className={chip + ' bg-slate-200'}>PENDING</span></div>
+      <div className='bg-white border rounded-xl p-4'>
+        <div className='font-bold text-2xl flex justify-between'>Tires & Brakes <span className={chip + ' bg-red-100 text-red-700'}>CRITICAL</span></div>
+        <div className='mt-3 border border-red-200 bg-red-50 rounded-lg p-3 flex items-center justify-between'>
+          <div><p className='font-bold text-red-700'>Rear Brake Pad Wear</p><p className='text-sm text-red-500'>Less than 3mm remaining on both sides.</p></div>
+          <div className='flex gap-1 text-xs font-bold'><button className='px-3 py-1 border rounded bg-white'>OK</button><button className='px-3 py-1 border rounded bg-white'>WARN</button><button className='px-3 py-1 rounded bg-red-600 text-white'>CRIT</button></div>
+        </div>
+      </div>
+      <div className='bg-slate-100 border rounded-xl p-4 text-slate-400 font-bold flex justify-between'>Interior <span className={chip + ' bg-slate-200'}>PENDING</span></div>
+    </div>
+  </section>
+  <aside className='card space-y-4'>
+    <div className='h-40 bg-slate-200 rounded-lg grid place-content-center text-slate-400'>Vehicle diagram</div>
+    <div className='h-48 bg-slate-200 rounded-lg grid place-content-center text-slate-400'>Damage mapping</div>
+    <div><h4 className='font-bold text-sm tracking-wide text-slate-500'>ANNOTATIONS</h4><div className='mt-2 space-y-2 text-sm'><div className='p-2 rounded border-l-4 border-red-500 bg-slate-50'>#1 Deep dent on front-left quarter panel</div><div className='p-2 rounded border-l-4 border-yellow-500 bg-slate-50'>#2 Paint scuff on rear bumper corner</div></div></div>
+    <div className='grid grid-cols-2 gap-2'><button className='py-2 border rounded font-semibold'>Print Preview</button><button className='py-2 rounded bg-[#0a1731] text-white font-semibold'>Next Section</button></div>
+  </aside>
 </div>;
 
-export const StockPage = () => <div className='space-y-4'><div className='grid md:grid-cols-4 gap-4'>{['Stock Entry','Adjustment Summary','Transaction History','Approval Queue'].map(x=><div key={x} className='card'>{x}</div>)}</div><div className='card overflow-auto'><table className='w-full text-sm'><thead><tr><th>Part</th><th>Qty</th><th>MAP</th><th>New Qty</th><th>New MAP</th><th>Validation</th></tr></thead><tbody>{['Oil Filter','Brake Pad'].map(p=><tr key={p} className='border-t'><td>{p}</td><td>120</td><td>12.50</td><td><input className='border rounded px-2 w-20' defaultValue={118}/></td><td><input className='border rounded px-2 w-24' defaultValue={12.45}/></td><td><span className='badge bg-emerald-100 text-emerald-700'>Ready</span></td></tr>)}</tbody></table></div></div>;
-
-export const CFDPage = () => <div className='grid lg:grid-cols-3 gap-4'><div className='card lg:col-span-2'><h3 className='font-semibold mb-2'>360° Vehicle Diagram Canvas</h3><div className='h-96 rounded bg-gradient-to-br from-slate-200 to-slate-300 dark:from-slate-800 dark:to-slate-700 flex items-center justify-center'>Stylus/Pen Annotation Area</div><div className='mt-3 flex gap-2'><button className='px-3 py-2 rounded bg-slate-800 text-white'>Print Preview</button><button className='px-3 py-2 rounded border'>Export PDF (Simulated)</button></div></div><aside className='card'><h3 className='font-semibold'>CFD Notes</h3><textarea className='mt-2 w-full h-64 rounded border p-2' placeholder='Add notes on diagram zones'/></aside></div>;
-
-export const ChecklistMasterPage = () => <div className='space-y-4'><div className='card flex flex-wrap gap-2'><input className='px-3 py-2 rounded border' placeholder='Brand/Model/KUPL'/><select className='px-3 py-2 rounded border'><option>Program</option></select><button className='px-3 py-2 rounded bg-emerald-600 text-white'>+ Create</button><button className='px-3 py-2 rounded border'>Bulk Upload</button></div><div className='card overflow-auto'><table className='w-full text-sm'><thead><tr><th>Brand</th><th>Model Year</th><th>KUPL/Inventory</th><th>Start</th><th>End</th><th>Program</th><th>Description</th><th>Status</th></tr></thead><tbody><tr className='border-t'><td>A</td><td>A11</td><td>22010/22013</td><td>2026-09-01</td><td>2026-09-30</td><td>Summer</td><td>A/B</td><td><button className='badge bg-blue-100 text-blue-700'>Active</button></td></tr></tbody></table></div><div className='text-sm text-slate-500'>Pagination • Sort • CRUD modal hooks • Date-based activation logic placeholders.</div></div>;
+export const StockPage = () => <div className='card'>Stock placeholder</div>;
+export const CFDPage = () => <div className='card'>CFD placeholder</div>;
+export const ChecklistMasterPage = () => <div className='card'>Checklist master placeholder</div>;
